@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V1c_Core — Muscle Building & Gym</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --red: #E8192C;
+      --red-dark: #A3101C;
+      --bg: #0A0A0A;
+      --surface: #141414;
+      --surface2: #1E1E1E;
+      --text: #F5F5F5;
+      --muted: #888;
+      --border: #2A2A2A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.95);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 60px;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 2px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--red); }
+
+    /* HERO */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 2.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 50%, rgba(232,25,44,0.12) 0%, transparent 70%),
+        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.015) 60px),
+        repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.015) 60px);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      margin-bottom: 1.5rem;
+      width: fit-content;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 12vw, 140px);
+      line-height: 0.92;
+      letter-spacing: 2px;
+      color: var(--text);
+      margin-bottom: 0.3em;
+    }
+
+    .hero h1 .line-red { color: var(--red); display: block; }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+      margin-top: 1rem;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: 14px 36px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 14px 36px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      color: var(--red);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    section { padding: 5rem 2.5rem; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 6vw, 60px);
+      letter-spacing: 1px;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--red);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ABOUT */
+    #about {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 960px;
+    }
+
+    .about-avatar {
+      width: 100%;
+      max-width: 340px;
+      aspect-ratio: 3/4;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .avatar-initials {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px;
+      color: var(--border);
+      user-select: none;
+    }
+
+    .avatar-accent {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--red);
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .about-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .badge {
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* WORKOUTS */
+    .workout-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      margin-top: 2rem;
+    }
+
+    .workout-card {
+      background: var(--surface);
+      padding: 2rem;
+      transition: background 0.2s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .workout-card:hover { background: var(--surface2); }
+    .workout-card:hover .card-arrow { color: var(--red); }
+
+    .card-icon { font-size: 28px; margin-bottom: 1rem; display: block; }
+
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 1px;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    .card-tag {
+      display: inline-block;
+      background: rgba(232,25,44,0.15);
+      color: var(--red);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      margin-top: 1rem;
+    }
+
+    .card-arrow {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      font-size: 20px;
+      color: var(--border);
+      transition: color 0.2s;
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 800px;
+    }
+
+    .contact-info p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 1.5rem;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .social-link:last-child { border-bottom: none; }
+    .social-link:hover { color: var(--red); }
+
+    .social-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* FORM */
+    .contact-form { display: flex; flex-direction: column; gap: 14px; }
+
+    .form-input, .form-textarea {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 16px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 14px;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--red); }
+    .form-textarea { resize: vertical; min-height: 110px; }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+    .footer-logo span { color: var(--red); }
+    footer p { font-size: 12px; color: var(--muted); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-tag   { animation: fadeUp 0.5s ease both; }
+    .hero h1    { animation: fadeUp 0.6s 0.1s ease both; }
+    .hero-sub   { animation: fadeUp 0.6s 0.2s ease both; }
+    .hero-cta   { animation: fadeUp 0.6s 0.3s ease both; }
+    .hero-stats { animation: fadeUp 0.6s 0.4s ease both; }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav { padding: 0 1.2rem; }
+      section { padding: 3.5rem 1.2rem; }
+      .hero { padding: 4rem 1.2rem 2.5rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-avatar { max-width: 200px; }
+      .hero-stats { gap: 2rem; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
+      .nav-links { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">V1c_<span>Core.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#workouts">Workouts</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Muscle Building &amp; Gym</div>
+  <h1>
+    BUILD<br>
+    <span class="line-red">YOUR</span>
+    BEST
+  </h1>
+  <p class="hero-sub">No shortcuts. No excuses. Just iron, sweat, and results. Follow along for real training advice built for real progress.</p>
+  <div class="hero-cta">
+    <a href="#workouts" class="btn-primary">See Workouts</a>
+    <a href="#contact" class="btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Years Training</div>
+    </div>
+    <div>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Natural</div>
+    </div>
+    <div>
+      <div class="stat-num">3x</div>
+      <div class="stat-label">Week Programs</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-avatar">
+      <div class="avatar-initials">YOU</div>
+      <div class="avatar-accent"></div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">THE PERSON BEHIND THE IRON</h2>
+      <div class="section-divider"></div>
+      <p>Hey! I'm a fitness content creator passionate about muscle building and helping beginners find their footing in the gym. I started from zero — no fancy equipment, no trainer — just consistency.</p>
+      <p>Every post I make is honest, practical, and straight from experience. No fluff. Just what actually works.</p>
+      <div class="about-badges">
+        <span class="badge">Hypertrophy</span>
+        <span class="badge">Nutrition</span>
+        <span class="badge">Form Tips</span>
+        <span class="badge">Beginner Friendly</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKOUTS -->
+<section id="workouts">
+  <div class="section-label">What I Cover</div>
+  <h2 class="section-title">WORKOUTS</h2>
+  <div class="section-divider"></div>
+  <div class="workout-grid">
+    <div class="workout-card">
+      <span class="card-icon">🏋️</span>
+      <div class="card-title">Push Day</div>
+      <p class="card-desc">Chest, shoulders, and triceps. Compound movements first, isolation last.</p>
+      <span class="card-tag">Intermediate</span>
+      <span class="card-arrow">→</span>
+    </div>
+    <div class="workout-card">
+      <span class="card-icon">💪</span>
+      <div class="card-title">Pull Day</div>
+      <p class="card-desc">Back thickness, width, and biceps. Heavy rows and lat pulldowns.</p>
+      <span class="card-tag">Intermediate</span>
+      <span class="card-arrow">→</span>
+    </div>
+    <div class="workout-card">
+      <span class="card-icon">🦵</span>
+      <div class="card-title">Leg Day</div>
+      <p class="card-desc">Squats, RDLs, lunges. Build a strong base that supports everything else.</p>
+      <span class="card-tag">Beginner</span>
+      <span class="card-arrow">→</span>
+    </div>
+    <div class="workout-card">
+      <span class="card-icon">🔥</span>
+      <div class="card-title">Full Body</div>
+      <p class="card-desc">3-day split for those short on time. Maximum efficiency per session.</p>
+      <span class="card-tag">Beginner</span>
+      <span class="card-arrow">→</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's Connect</div>
+  <h2 class="section-title">CONTACT</h2>
+  <div class="section-divider"></div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p>Have a question about training, nutrition, or collabs? Drop me a message — I read every one.</p>
+      <div class="social-links">
+        <a href="https://instagram.com/YOUR_HANDLE" class="social-link" target="_blank">
+          <span class="social-icon">📸</span>
+          Instagram
+        </a>
+        <a href="https://youtube.com/@YOUR_CHANNEL" class="social-link" target="_blank">
+          <span class="social-icon">▶</span>
+          YouTube
+        </a>
+        <a href="https://tiktok.com/@YOUR_HANDLE" class="social-link" target="_blank">
+          <span class="social-icon">✦</span>
+          TikTok
+        </a>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <input class="form-input" type="text" placeholder="Your name" required />
+      <input class="form-input" type="email" placeholder="Your email" required />
+      <textarea class="form-textarea" placeholder="Your message..."></textarea>
+      <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">V1c_<span>Core.</span></div>
+  <p>© 2026 — Built for the grind.</p>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Sent!';
+    btn.style.background = '#1a6b3a';
+    setTimeout(() => {
+      btn.textContent = 'Send Message';
+      btn.style.background = '';
+      e.target.reset();
+    }, 2500);
+  }
+</script>
+
+</body>
+</html>
